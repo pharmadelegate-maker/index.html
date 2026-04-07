@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GigBroz — Cloud Security & Compliance Experts Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0A1628;
+    --navy-mid: #0F2044;
+    --blue: #1A56DB;
+    --blue-light: #3B82F6;
+    --cyan: #06B6D4;
+    --cyan-light: #67E8F9;
+    --white: #F8FAFF;
+    --gray: #8FA3BF;
+    --gray-light: #E8EEF7;
+    --border: rgba(26,86,219,0.18);
+    --gold: #F59E0B;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+  h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5%;
+    height: 70px;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    color: var(--white);
+  }
+  .logo span { color: var(--cyan); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--gray); text-decoration: none; font-size: 0.9rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-cta { display: flex; gap: 0.75rem; align-items: center; }
+  .btn-ghost {
+    padding: 0.5rem 1.25rem; border: 1px solid var(--border);
+    border-radius: 6px; color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; cursor: pointer; background: transparent;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--cyan); background: rgba(6,182,212,0.06); }
+  .btn-primary {
+    padding: 0.5rem 1.25rem; border: none;
+    border-radius: 6px; background: var(--blue);
+    color: var(--white); font-family: 'DM Sans', sans-serif;
+    font-size: 0.875rem; font-weight: 500; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--blue-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  #home {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 120px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(26,86,219,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,86,219,0.07) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-glow {
+    position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 400px;
+    background: radial-gradient(ellipse, rgba(6,182,212,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; max-width: 720px; animation: fadeUp 0.8s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.35rem 1rem;
+    border: 1px solid rgba(6,182,212,0.3);
+    border-radius: 100px;
+    font-size: 0.8rem; font-weight: 500; color: var(--cyan);
+    background: rgba(6,182,212,0.08);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .hero-badge::before { content: '●'; font-size: 0.6rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  h1 {
+    font-size: clamp(2.4rem, 5vw, 3.8rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  h1 .accent { color: var(--cyan); }
+  .hero-sub {
+    font-size: 1.1rem; color: var(--gray); line-height: 1.7;
+    max-width: 560px; margin-bottom: 2.5rem;
+  }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-large {
+    padding: 0.85rem 2rem; font-size: 1rem; font-weight: 500;
+    border-radius: 8px; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s;
+  }
+  .btn-large-primary {
+    background: var(--blue); color: var(--white); border: none;
+  }
+  .btn-large-primary:hover { background: var(--blue-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,86,219,0.35); }
+  .btn-large-outline {
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border);
+  }
+  .btn-large-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 3.5rem;
+    padding-top: 2.5rem; border-top: 1px solid var(--border);
+  }
+  .stat-val { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700; color: var(--white); }
+  .stat-lbl { font-size: 0.82rem; color: var(--gray); margin-top: 0.25rem; }
+
+  /* ── SECTION BASE ── */
+  section { padding: 90px 5%; }
+  .section-tag {
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--cyan); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 700;
+    letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--gray); font-size: 1rem; line-height: 1.7; max-width: 560px; }
+
+  /* ── HOW IT WORKS ── */
+  #how {
+    background: var(--navy-mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .how-inner { max-width: 1100px; margin: 0 auto; }
+  .how-header { margin-bottom: 3.5rem; }
+  .how-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 3rem;
+    background: rgba(255,255,255,0.04); border-radius: 10px; padding: 5px;
+    width: fit-content;
+  }
+  .how-tab {
+    padding: 0.6rem 1.5rem; border-radius: 7px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    color: var(--gray); background: transparent; border: none;
+    transition: all 0.2s;
+  }
+  .how-tab.active { background: var(--blue); color: var(--white); }
+  .how-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+  .how-step {
+    padding: 2rem; border-radius: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+  }
+  .how-step:hover { border-color: rgba(6,182,212,0.3); transform: translateY(-3px); }
+  .step-num {
+    font-family: 'Syne', sans-serif; font-size: 2.5rem; font-weight: 800;
+    color: rgba(26,86,219,0.25); line-height: 1; margin-bottom: 1rem;
+  }
+  .step-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+  .how-step h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .how-step p { font-size: 0.875rem; color: var(--gray); line-height: 1.6; }
+
+  /* ── SERVICES ── */
+  #services { max-width: 1200px; margin: 0 auto; padding: 90px 0; }
+  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+  .service-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.75rem;
+    transition: all 0.25s; cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    opacity: 0; transition: opacity 0.2s;
+  }
+  .service-card:hover { border-color: rgba(6,182,212,0.25); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+  .service-card:hover::before { opacity: 1; }
+  .service-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: rgba(26,86,219,0.15); border: 1px solid rgba(26,86,219,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem; margin-bottom: 1.25rem;
+  }
+  .service-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .service-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; margin-bottom: 1.25rem; }
+  .service-meta { display: flex; gap: 1rem; align-items: center; }
+  .service-tag {
+    font-size: 0.75rem; padding: 0.25rem 0.7rem;
+    background: rgba(6,182,212,0.1); color: var(--cyan);
+    border-radius: 100px; font-weight: 500;
+  }
+  .service-experts { font-size: 0.8rem; color: var(--gray); }
+
+  /* ── POST REQUIREMENT ── */
+  #post {
+    background: linear-gradient(135deg, rgba(26,86,219,0.15) 0%, rgba(6,182,212,0.08) 100%);
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+  }
+  .post-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .post-inner .section-sub { margin: 0 auto 3rem; }
+  .post-form {
+    background: rgba(10,22,40,0.7); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2.5rem; text-align: left;
+    backdrop-filter: blur(10px);
+  }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-group label { font-size: 0.82rem; font-weight: 500; color: var(--gray); }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.04); border: 1px solid var(--border);
+    border-radius: 8px; padding: 0.7rem 1rem; color: var(--white);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--blue); }
+  .form-group select option { background: var(--navy-mid); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+  .form-full { grid-column: 1 / -1; }
+  .submit-row { display: flex; justify-content: flex-end; margin-top: 1.5rem; }
+
+  /* ── ABOUT ── */
+  #about { max-width: 1100px; margin: 0 auto; padding: 90px 0; }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-visual {
+    background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2.5rem; position: relative;
+  }
+  .about-shield {
+    font-size: 5rem; text-align: center; margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 20px rgba(6,182,212,0.4));
+  }
+  .about-features { display: flex; flex-direction: column; gap: 1rem; }
+  .about-feat {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem; border-radius: 10px;
+    background: rgba(26,86,219,0.08); border: 1px solid var(--border);
+  }
+  .about-feat-icon { font-size: 1.2rem; margin-top: 2px; flex-shrink: 0; }
+  .about-feat h5 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .about-feat p { font-size: 0.8rem; color: var(--gray); line-height: 1.5; }
+  .about-text .section-title { margin-bottom: 1.25rem; }
+  .about-text p { color: var(--gray); line-height: 1.8; margin-bottom: 1.25rem; }
+  .about-pillars { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+  .pillar {
+    padding: 0.4rem 1rem; border-radius: 6px;
+    background: rgba(26,86,219,0.12); border: 1px solid rgba(26,86,219,0.2);
+    font-size: 0.8rem; color: var(--gray-light); font-weight: 500;
+  }
+
+  /* ── BLOG ── */
+  #blog { background: var(--navy-mid); border-top: 1px solid var(--border); }
+  .blog-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; max-width: 1100px; margin-inline: auto; flex-wrap: wrap; gap: 1rem; }
+  .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .blog-card {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; transition: all 0.25s; cursor: pointer;
+  }
+  .blog-card:hover { border-color: rgba(6,182,212,0.25); transform: translateY(-3px); }
+  .blog-img {
+    height: 160px; display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    background: linear-gradient(135deg, rgba(26,86,219,0.2), rgba(6,182,212,0.1));
+    border-bottom: 1px solid var(--border);
+  }
+  .blog-body { padding: 1.5rem; }
+  .blog-tag {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--cyan); font-weight: 600; margin-bottom: 0.6rem;
+  }
+  .blog-card h3 { font-size: 0.95rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.5rem; }
+  .blog-card p { font-size: 0.82rem; color: var(--gray); line-height: 1.6; margin-bottom: 1rem; }
+  .blog-footer { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--gray); }
+
+  /* ── CONTACT ── */
+  #contact { max-width: 900px; margin: 0 auto; padding: 90px 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+  .contact-info h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .contact-info p { font-size: 0.875rem; color: var(--gray); line-height: 1.7; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex; gap: 0.75rem; align-items: center;
+    font-size: 0.875rem; color: var(--gray); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--cyan); }
+  .contact-link-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(26,86,219,0.1); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  /* ── AUTH MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(5,12,25,0.85); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--navy-mid); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2.5rem; width: min(480px, 92vw);
+    animation: fadeUp 0.3s ease both;
+    position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 1rem; right: 1rem;
+    background: transparent; border: none; color: var(--gray);
+    font-size: 1.2rem; cursor: pointer;
+  }
+  .modal-tabs { display: flex; gap: 0; margin-bottom: 2rem; }
+  .modal-tab {
+    flex: 1; padding: 0.7rem; text-align: center;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500;
+    cursor: pointer; border: 1px solid var(--border); background: transparent;
+    color: var(--gray); transition: all 0.2s;
+  }
+  .modal-tab:first-child { border-radius: 8px 0 0 8px; }
+  .modal-tab:last-child  { border-radius: 0 8px 8px 0; }
+  .modal-tab.active { background: var(--blue); border-color: var(--blue); color: var(--white); }
+  .modal h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .modal-sub { font-size: 0.85rem; color: var(--gray); margin-bottom: 1.75rem; }
+  .modal-form { display: flex; flex-direction: column; gap: 1rem; }
+  .role-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .role-option {
+    padding: 1rem; border-radius: 10px; border: 1px solid var(--border);
+    cursor: pointer; text-align: center; transition: all 0.2s; background: transparent;
+  }
+  .role-option.selected { border-color: var(--blue); background: rgba(26,86,219,0.1); }
+  .role-option-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+  .role-option h4 { font-size: 0.85rem; font-weight: 600; color: var(--white); }
+  .role-option p { font-size: 0.75rem; color: var(--gray); }
+  .divider { text-align: center; color: var(--gray); font-size: 0.8rem; position: relative; margin: 0.5rem 0; }
+  .divider::before, .divider::after {
+    content: ''; position: absolute; top: 50%; width: 42%;
+    height: 1px; background: var(--border);
+  }
+  .divider::before { left: 0; } .divider::after { right: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); padding: 3rem 5% 2rem;
+    background: var(--navy);
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 3rem; max-width: 1100px; margin: 0 auto 2.5rem;
+  }
+  .footer-brand .logo { margin-bottom: 0.75rem; display: block; }
+  .footer-brand p { font-size: 0.85rem; color: var(--gray); line-height: 1.7; max-width: 260px; }
+  .footer-col h5 { font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; color: var(--white); }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+  .footer-col a { font-size: 0.83rem; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--white); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 1.5rem; border-top: 1px solid var(--border);
+    max-width: 1100px; margin: 0 auto; flex-wrap: wrap; gap: 1rem;
+    font-size: 0.8rem; color: var(--gray);
+  }
+  .footer-badges { display: flex; gap: 0.75rem; }
+  .badge {
+    padding: 0.3rem 0.8rem; border: 1px solid var(--border);
+    border-radius: 100px; font-size: 0.72rem; color: var(--gray);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    section { padding: 60px 5%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Gig<span>Broz</span></div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#post">Post a Job</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-cta">
+    <button class="btn-ghost" onclick="openModal('login')">Log In</button>
+    <button class="btn-primary" onclick="openModal('signup')">Sign Up</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Trusted Cloud Security Marketplace</div>
+    <h1>Connect with <span class="accent">Elite Cloud Security</span> & Compliance Experts</h1>
+    <p class="hero-sub">GigBroz bridges companies needing cloud security, compliance, and risk management with verified specialists — on demand, at scale.</p>
+    <div class="hero-actions">
+      <button class="btn-large btn-large-primary" onclick="openModal('signup')">Find an Expert →</button>
+      <button class="btn-large btn-large-outline" onclick="document.getElementById('post').scrollIntoView({behavior:'smooth'})">Post a Requirement</button>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">1,200+</div>
+        <div class="stat-lbl">Verified Experts</div>
+      </div>
+      <div>
+        <div class="stat-val">500+</div>
+        <div class="stat-lbl">Companies Served</div>
+      </div>
+      <div>
+        <div class="stat-val">98%</div>
+        <div class="stat-lbl">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="how-inner">
+    <div class="how-header">
+      <div class="section-tag">How It Works</div>
+      <h2 class="section-title">Simple. Fast. Secure.</h2>
+      <p class="section-sub">Whether you're an expert or a company, getting started on GigBroz takes minutes.</p>
+    </div>
+    <div class="how-tabs">
+      <button class="how-tab active" onclick="switchTab('company', this)">For Companies</button>
+      <button class="how-tab" onclick="switchTab('expert', this)">For Experts</button>
+    </div>
+    <div class="how-steps" id="how-steps">
+      <div class="how-step">
+        <div class="step-num">01</div>
+        <div class="step-icon">📋</div>
+        <h4>Post Your Requirement</h4>
+        <p>Describe your cloud security or compliance challenge. Specify scope, timeline, and budget.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">02</div>
+        <div class="step-icon">🔍</div>
+        <h4>Get Matched</h4>
+        <p>Our smart matching engine surfaces pre-vetted experts that align with your exact needs.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">03</div>
+        <div class="step-icon">🤝</div>
+        <h4>Engage & Collaborate</h4>
+        <p>Interview shortlisted experts, review profiles, certifications, and past work.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">04</div>
+        <div class="step-icon">✅</div>
+        <h4>Deliver & Close</h4>
+        <p>Work is delivered, reviewed, and payment released securely on project completion.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section style="padding: 90px 5%;">
+  <div id="services">
+    <div class="services-header">
+      <div>
+        <div class="section-tag">Expert Services</div>
+        <h2 class="section-title">What Our Experts Offer</h2>
+      </div>
+      <button class="btn-ghost">View All Services →</button>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🔐</div>
+        <h3>Cloud Security Architecture</h3>
+        <p>Design and review secure cloud infrastructure on AWS, Azure, or GCP aligned to industry best practices.</p>
+        <div class="service-meta">
+          <span class="service-tag">Security</span>
+          <span class="service-experts">142 experts</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📜</div>
+        <h3>Compliance Auditing</h3>
+        <p>SOC 2, ISO 27001, HIPAA, PCI-DSS, and GDPR compliance audits with actionable remediation plans.</p>
+        <div class="service-meta">
+          <span class="service-tag">Compliance</span>
+          <span class="service-experts">98 experts</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🛡️</div>
+        <h3>Penetration Testing</h3>
+        <p>Cloud infrastructure pen testing, red team exercises, and vulnerability assessments.</p>
+        <div class="service-meta">
+          <span class="service-tag">Red Team</span>
+          <span class="service-experts">76 experts</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>DevSecOps Integration</h3>
+        <p>Embed security into CI/CD pipelines, automate policy enforcement, and secure container workloads.</p>
+        <div class="service-meta">
+          <span class="service-tag">DevSecOps</span>
+          <span class="service-experts">110 experts</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔎</div>
+        <h3>Threat Detection & SIEM</h3>
+        <p>Implement SIEM, SOAR, and threat intelligence pipelines for real-time cloud monitoring.</p>
+        <div class="service-meta">
+          <span class="service-tag">Detection</span>
+          <span class="service-experts">64 experts</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🏛️</div>
+        <h3>Risk & Governance</h3>
+        <p>Cloud governance frameworks, risk registers, third-party risk management, and policy development.</p>
+        <div class="service-meta">
+          <span class="service-tag">GRC</span>
+          <span class="service-experts">89 experts</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST REQUIREMENT -->
+<section id="post">
+  <div class="post-inner">
+    <div class="section-tag">Companies</div>
+    <h2 class="section-title">Post Your Security Requirement</h2>
+    <p class="section-sub">Tell us what you need and get matched with the right expert within 24 hours. No obligation, no fluff.</p>
+    <div class="post-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" placeholder="Acme Corp" />
+        </div>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Jane Smith" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Work Email</label>
+          <input type="email" placeholder="jane@acmecorp.com" />
+        </div>
+        <div class="form-group">
+          <label>Service Category</label>
+          <select>
+            <option value="">Select a category</option>
+            <option>Cloud Security Architecture</option>
+            <option>Compliance Auditing</option>
+            <option>Penetration Testing</option>
+            <option>DevSecOps Integration</option>
+            <option>Threat Detection & SIEM</option>
+            <option>Risk & Governance (GRC)</option>
+            <option>Other</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Cloud Platform</label>
+          <select>
+            <option value="">Select platform</option>
+            <option>AWS</option>
+            <option>Microsoft Azure</option>
+            <option>Google Cloud (GCP)</option>
+            <option>Multi-Cloud</option>
+            <option>On-Premises / Hybrid</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Estimated Budget</label>
+          <select>
+            <option value="">Select range</option>
+            <option>Under $5,000</option>
+            <option>$5,000 – $15,000</option>
+            <option>$15,000 – $50,000</option>
+            <option>$50,000+</option>
+            <option>Ongoing / Retainer</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group form-full">
+          <label>Describe Your Requirement</label>
+          <textarea placeholder="Describe your project goals, current environment, compliance frameworks involved, and any specific challenges you're facing…"></textarea>
+        </div>
+      </div>
+      <div class="submit-row">
+        <button class="btn-large btn-large-primary">Submit Requirement →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section style="padding: 90px 5%;">
+  <div id="about">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-shield">🛡️</div>
+        <div class="about-features">
+          <div class="about-feat">
+            <div class="about-feat-icon">✅</div>
+            <div>
+              <h5>Thoroughly Vetted Experts</h5>
+              <p>Every expert on GigBroz is background checked, credential verified, and peer-reviewed before listing.</p>
+            </div>
+          </div>
+          <div class="about-feat">
+            <div class="about-feat-icon">🔒</div>
+            <div>
+              <h5>Secure Engagements</h5>
+              <p>NDAs, escrow payments, and secure workspaces protect both parties on every engagement.</p>
+            </div>
+          </div>
+          <div class="about-feat">
+            <div class="about-feat-icon">⚡</div>
+            <div>
+              <h5>Fast Matching</h5>
+              <p>AI-powered matching connects companies to the right expert in under 24 hours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag">About GigBroz</div>
+        <h2 class="section-title">Built for the Niche. Trusted by the Industry.</h2>
+        <p>GigBroz was founded by cloud security practitioners who were frustrated by generic freelance platforms that couldn't understand the depth of security and compliance work. We built a specialized marketplace where expertise actually gets matched with complexity.</p>
+        <p>Today, GigBroz serves startups, mid-market companies, and enterprises across healthcare, fintech, SaaS, and government — connecting them with credentialed experts in cloud security, audit, GRC, and DevSecOps.</p>
+        <div class="about-pillars">
+          <span class="pillar">AWS Security</span>
+          <span class="pillar">Azure Defender</span>
+          <span class="pillar">SOC 2</span>
+          <span class="pillar">ISO 27001</span>
+          <span class="pillar">HIPAA</span>
+          <span class="pillar">PCI-DSS</span>
+          <span class="pillar">GDPR</span>
+          <span class="pillar">Zero Trust</span>
+          <span class="pillar">CSPM</span>
+          <span class="pillar">SIEM/SOAR</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog" style="padding: 90px 5%;">
+  <div class="blog-header">
+    <div>
+      <div class="section-tag">Insights</div>
+      <h2 class="section-title">From the GigBroz Blog</h2>
+    </div>
+    <button class="btn-ghost">All Articles →</button>
+  </div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-img">☁️</div>
+      <div class="blog-body">
+        <div class="blog-tag">Cloud Security</div>
+        <h3>SOC 2 Type II vs. ISO 27001: Which Should Your SaaS Prioritize?</h3>
+        <p>A practical breakdown of the two most requested compliance frameworks and when each makes sense for growth-stage companies.</p>
+        <div class="blog-footer"><span>Jun 12, 2025</span><span>8 min read</span></div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img">🔐</div>
+      <div class="blog-body">
+        <div class="blog-tag">Architecture</div>
+        <h3>Zero Trust in Multi-Cloud: A Practical Implementation Guide</h3>
+        <p>Implementing Zero Trust across AWS and Azure simultaneously is complex — here's a framework that actually works.</p>
+        <div class="blog-footer"><span>May 28, 2025</span><span>11 min read</span></div>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-img">⚙️</div>
+      <div class="blog-body">
+        <div class="blog-tag">DevSecOps</div>
+        <h3>Shifting Left Without Breaking CI/CD: Lessons from 50 Engagements</h3>
+        <p>What our top DevSecOps experts have learned integrating security checks into fast-moving engineering teams.</p>
+        <div class="blog-footer"><span>May 14, 2025</span><span>6 min read</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section style="padding: 90px 5%;">
+  <div id="contact">
+    <div class="section-tag">Get In Touch</div>
+    <h2 class="section-title">We're Here to Help</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Talk to our team</h3>
+        <p>Have questions about GigBroz, need help finding an expert, or want to list your services? Reach out — we respond within one business day.</p>
+        <div class="contact-links">
+          <a href="mailto:hello@gigbroz.com" class="contact-link">
+            <div class="contact-link-icon">✉️</div>
+            <span>hello@gigbroz.com</span>
+          </a>
+          <a href="tel:+15551234567" class="contact-link">
+            <div class="contact-link-icon">📞</div>
+            <span>+1 (555) 123-4567</span>
+          </a>
+          <a href="#" class="contact-link">
+            <div class="contact-link-icon">💬</div>
+            <span>Live Chat (Mon–Fri, 9am–6pm ET)</span>
+          </a>
+          <a href="#" class="contact-link">
+            <div class="contact-link-icon">🔗</div>
+            <span>LinkedIn · Twitter · YouTube</span>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Full name" />
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Subject</label>
+          <select>
+            <option>General Enquiry</option>
+            <option>I need to hire an expert</option>
+            <option>I want to join as an expert</option>
+            <option>Partnership / Enterprise</option>
+            <option>Technical Support</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="How can we help you?"></textarea>
+        </div>
+        <button class="btn-large btn-large-primary" style="width:100%">Send Message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Gig<span>Broz</span></span>
+      <p>The specialized marketplace connecting cloud security and compliance experts with organizations that need them most.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Platform</h5>
+      <ul>
+        <li><a href="#services">Browse Services</a></li>
+        <li><a href="#post">Post a Job</a></li>
+        <li><a href="#" onclick="openModal('signup')">Join as Expert</a></li>
+        <li><a href="#">Enterprise Plans</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Legal</h5>
+      <ul>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Cookie Policy</a></li>
+        <li><a href="#">Security</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 GigBroz. All rights reserved.</span>
+    <div class="footer-badges">
+      <span class="badge">SOC 2 Ready</span>
+      <span class="badge">SSL Secured</span>
+      <span class="badge">GDPR Compliant</span>
+    </div>
+  </div>
+</footer>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="auth-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-login" onclick="switchAuthTab('login')">Log In</button>
+      <button class="modal-tab" id="tab-signup" onclick="switchAuthTab('signup')">Sign Up</button>
+    </div>
+
+    <!-- LOGIN PANEL -->
+    <div id="panel-login">
+      <h2>Welcome back</h2>
+      <p class="modal-sub">Log in to your GigBroz account</p>
+      <div class="modal-form">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="••••••••" />
+        </div>
+        <button class="btn-large btn-large-primary" style="width:100%;margin-top:0.5rem">Log In →</button>
+        <div class="divider">or</div>
+        <button class="btn-ghost" style="width:100%;padding:0.7rem">Continue with Google</button>
+        <p style="text-align:center;font-size:0.8rem;color:var(--gray);margin-top:0.5rem">
+          Don't have an account? <a href="#" style="color:var(--cyan)" onclick="switchAuthTab('signup')">Sign up</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- SIGNUP PANEL -->
+    <div id="panel-signup" style="display:none">
+      <h2>Create account</h2>
+      <p class="modal-sub">Join as an expert or post a requirement</p>
+      <div class="modal-form">
+        <div class="role-selector">
+          <div class="role-option selected" id="role-expert" onclick="selectRole('expert')">
+            <div class="role-option-icon">👨‍💻</div>
+            <h4>I'm an Expert</h4>
+            <p>Offer security & compliance services</p>
+          </div>
+          <div class="role-option" id="role-company" onclick="selectRole('company')">
+            <div class="role-option-icon">🏢</div>
+            <h4>I'm a Company</h4>
+            <p>Hire experts for my projects</p>
+          </div>
+        </div>
+        <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" placeholder="Jane" />
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" placeholder="Smith" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Work Email</label>
+          <input type="email" placeholder="jane@company.com" />
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" placeholder="Minimum 8 characters" />
+        </div>
+        <button class="btn-large btn-large-primary" style="width:100%;margin-top:0.5rem">Create Account →</button>
+        <p style="text-align:center;font-size:0.75rem;color:var(--gray)">
+          By signing up, you agree to our <a href="#" style="color:var(--cyan)">Terms</a> and <a href="#" style="color:var(--cyan)">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Modal
+  function openModal(tab) {
+    document.getElementById('auth-modal').classList.add('open');
+    switchAuthTab(tab);
+  }
+  function closeModal() {
+    document.getElementById('auth-modal').classList.remove('open');
+  }
+  document.getElementById('auth-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  function switchAuthTab(tab) {
+    document.getElementById('panel-login').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('panel-signup').style.display = tab === 'signup' ? 'block' : 'none';
+    document.getElementById('tab-login').classList.toggle('active', tab === 'login');
+    document.getElementById('tab-signup').classList.toggle('active', tab === 'signup');
+  }
+
+  function selectRole(role) {
+    document.getElementById('role-expert').classList.toggle('selected', role === 'expert');
+    document.getElementById('role-company').classList.toggle('selected', role === 'company');
+  }
+
+  // How it works tabs
+  const expertSteps = [
+    { n:'01', i:'📝', h:'Build Your Profile', p:'Create a detailed expert profile with certifications, skills, and portfolio of past work.' },
+    { n:'02', i:'✅', h:'Get Verified', p:'Complete GigBroz vetting — credential check, background screen, and peer review.' },
+    { n:'03', i:'📩', h:'Receive Opportunities', p:'Get matched to relevant company requirements. Apply or accept direct invitations.' },
+    { n:'04', i:'💰', h:'Deliver & Get Paid', p:'Complete work, get reviewed, and receive secure payment via our protected escrow system.' },
+  ];
+  const companySteps = [
+    { n:'01', i:'📋', h:'Post Your Requirement', p:'Describe your cloud security or compliance challenge. Specify scope, timeline, and budget.' },
+    { n:'02', i:'🔍', h:'Get Matched', p:'Our smart matching engine surfaces pre-vetted experts that align with your exact needs.' },
+    { n:'03', i:'🤝', h:'Engage & Collaborate', p:'Interview shortlisted experts, review profiles, certifications, and past work.' },
+    { n:'04', i:'✅', h:'Deliver & Close', p:'Work is delivered, reviewed, and payment released securely on project completion.' },
+  ];
+
+  function switchTab(type, el) {
+    document.querySelectorAll('.how-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const steps = type === 'expert' ? expertSteps : companySteps;
+    const container = document.getElementById('how-steps');
+    container.innerHTML = steps.map(s => `
+      <div class="how-step">
+        <div class="step-num">${s.n}</div>
+        <div class="step-icon">${s.i}</div>
+        <h4>${s.h}</h4>
+        <p>${s.p}</p>
+      </div>
+    `).join('');
+  }
+</script>
+</body>
+</html>
